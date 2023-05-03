@@ -1,0 +1,73 @@
+//setting up the switch protocols
+Switch>en
+Switch#config t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname Sales-SW
+Sales-SW(config)#banner motd #NO Unauthorised Access!!!#
+Sales-SW(config)#no ip domain lookup
+Sales-SW(config)#line console 0
+Sales-SW(config-line)#passw cisco
+Sales-SW(config-line)#login
+Sales-SW(config-line)#ex
+% Ambiguous command: "ex"
+Sales-SW(config-line)#
+Sales-SW(config-line)#
+Sales-SW(config-line)#exit
+Sales-SW(config)#en
+% Ambiguous command: "en"
+Sales-SW(config)#en
+% Ambiguous command: "en"
+Sales-SW(config)#enable
+% Incomplete command.
+Sales-SW(config)#enable pass
+% Incomplete command.
+Sales-SW(config)#enable password cisco
+Sales-SW(config)#service password-encryption
+Sales-SW(config)#
+Sales-SW(config)#
+Sales-SW(config)#exit
+Sales-SW#
+
+
+--------------------------------------------------------------------------------------------------------
+
+//setting up the router protocols
+Router>en
+Router#config t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#hostname CORE-R2
+CORE-R2(config)#line console 0
+CORE-R2(config-line)#password cisco
+CORE-R2(config-line)#login
+CORE-R2(config-line)#exit
+CORE-R2(config)#enable password cisco
+CORE-R2(config)#no ip domain-lookup
+CORE-R2(config)#banner motd #NO Unauthorised Access!!!#
+CORE-R2(config)#service password-encryption
+CORE-R2(config)#do wr
+Building configuration...
+[OK]
+CORE-R2(config)#ip domain name cisco.net
+CORE-R2(config)#username admin password cisco
+CORE-R2(config)#crypto key generate rsa
+The name for the keys will be: CORE-R2.cisco.net
+Choose the size of the key modulus in the range of 360 to 2048 for your
+  General Purpose Keys. Choosing a key modulus greater than 512 may take
+  a few minutes.
+How many bits in the modulus [512]: 1024
+% Generating 1024 bit RSA keys, keys will be non-exportable...[OK]
+
+CORE-R2(config)#line vty 0 15
+*Mar 1 1:15:29.885: %SSH-5-ENABLED: SSH 1.99 has been enabled
+CORE-R2(config-line)#login local
+CORE-R2(config-line)#transport input ssh
+CORE-R2(config-line)#exit S
+CORE-R2(config)#do wr
+Building configuration...
+[OK]
+CORE-R2(config)#ip ssh v
+CORE-R2(config)#ip ssh version 2
+CORE-R2(config)#do wr
+Building configuration...
+[OK]
+CORE-R2(config)#
